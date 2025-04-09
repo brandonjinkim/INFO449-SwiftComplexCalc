@@ -73,6 +73,11 @@ class Calculator {
     }
     
     func multiply (lhs a: Int? = nil, rhs b: Int? = nil, _ c: [Int]? = nil) -> Int {
+        
+        if (c != nil && c!.isEmpty) {
+            return 0
+        }
+        
         if (c != nil) {
             var sum = 1
             for i in c! {
@@ -87,6 +92,10 @@ class Calculator {
         return a / b;
     }
     
+    func modulo (lhs a: Int, rhs b: Int) -> Int {
+        return a % b
+    }
+    
     func count (_ a: [Int]?) -> Int {
         if (a == nil) {
             return 0
@@ -94,12 +103,15 @@ class Calculator {
         return a!.count
     }
     
-    func avg (_ a: [Int]?) -> Int {
+    func avg (_ a: [Int]) -> Int {
+        if (a.isEmpty) {
+            return 0
+        }
         var sum = 0
-        for i in a! {
+        for i in a {
             sum += i
         }
-        return sum / a!.count
+        return sum / a.count
     }
     
     func mathOp (lhs a: Int? = nil, rhs b: Int? = nil, op operation: (Int, Int) -> Int) -> Int {
@@ -130,6 +142,26 @@ let calc = Calculator()
 //: Keep in mind that writing new tests may reveal ambiguity in the specification above--if that's the case, document the ambiguity, declare what you think *should* happen, and write the test to test for it.
 
 // ===== Your tests go here
+
+// negative numbers
+
+calc.add(lhs: -1, rhs: 1) == 0
+calc.subtract(lhs: 2, rhs: -22) == 24
+calc.multiply(lhs: 2, rhs: -1) == -2
+calc.divide(lhs: -4, rhs: 2) == -2
+
+calc.add([1, -1, 2, -2, 3, -3]) == 0
+calc.multiply([-1, 1, -2, 2, -3, 3]) == -36
+
+// modulo
+calc.modulo(lhs: 3, rhs: 2) == 1
+
+// avg on empty array
+calc.avg([]) == 0
+
+// add or multiply on empty array
+calc.add([]) == 0
+calc.multiply([]) == 0
 
 //: ---
 //: ## Test code block
