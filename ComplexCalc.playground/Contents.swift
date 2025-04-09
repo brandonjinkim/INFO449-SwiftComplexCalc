@@ -102,12 +102,17 @@ class Calculator {
         return sum / a!.count
     }
     
-    func mathOp (lhs a: Int? = nil, rhs b: Int? = nil, op: ((Int, Int) -> Int)? = nil) -> Int {
-        return -1
+    func mathOp (lhs a: Int? = nil, rhs b: Int? = nil, op operation: (Int, Int) -> Int) -> Int {
+        let answer = Int(operation(a!, b!));
+        return answer
+        
     }
-    func mathOp (args : [Int]? = nil, beg : Int? = nil, op: ((Int, Int) -> Int)? = nil) -> Int {
-            
-        return -1
+    func mathOp (args c: [Int], beg begin: Int, op operation: (Int, Int) -> Int) -> Int {
+        var result = begin
+        for i in c {
+            result = operation(result, i)
+        }
+        return result
     }
     
 }
