@@ -28,6 +28,88 @@ print("Welcome back to the UW Calculator")
 //: IMPORTANT: If any tests are commented out, you will be graded a zero (0)! You should never be in the habit of eliminating tests to make the code pass.
 //:
 class Calculator {
+    
+    func add (lhs a: Int? = nil, rhs b: Int? = nil, _ c: [Int]? = nil) -> Int {
+        if (c != nil) {
+            var sum = 0
+            for i in c! {
+                sum += i
+            }
+            return sum
+        }
+        return a! + b!;
+    }
+    
+    //tuple version
+    func add (lhs a: (Int, Int), rhs b: (Int, Int)) -> (Int, Int) {
+        return (a.0 + b.0, a.1 + b.1);
+    }
+    
+    //dictionary version
+    func add (lhs a: [String: Int], rhs b: [String: Int]) -> [String: Int] {
+        var result: [String: Int] = [:]
+        for (key, value) in a {
+            result[key] = value + (b[key]!)
+        }
+        return result
+    }
+    
+    func subtract (lhs a: Int, rhs b: Int) -> Int {
+        return a - b;
+    }
+    
+    //tuple version
+    func subtract (lhs a: (Int, Int), rhs b: (Int, Int)) -> (Int, Int) {
+        return (a.0 - b.0, a.1 - b.1);
+    }
+    
+    //dictionary version
+    func subtract (lhs a: [String: Int], rhs b: [String: Int]) -> [String: Int] {
+        var result: [String: Int] = [:]
+        for (key, value) in a {
+            result[key] = value - (b[key]!)
+        }
+        return result
+    }
+    
+    func multiply (lhs a: Int? = nil, rhs b: Int? = nil, _ c: [Int]? = nil) -> Int {
+        if (c != nil) {
+            var sum = 1
+            for i in c! {
+                sum *= i
+            }
+            return sum
+        }
+        return a! * b!;
+    }
+    
+    func divide (lhs a: Int, rhs b: Int) -> Int {
+        return a / b;
+    }
+    
+    func count (_ a: [Int]?) -> Int {
+        if (a == nil) {
+            return 0
+        }
+        return a!.count
+    }
+    
+    func avg (_ a: [Int]?) -> Int {
+        var sum = 0
+        for i in a! {
+            sum += i
+        }
+        return sum / a!.count
+    }
+    
+    func mathOp (lhs a: Int? = nil, rhs b: Int? = nil, op: ((Int, Int) -> Int)? = nil) -> Int {
+        return -1
+    }
+    func mathOp (args : [Int]? = nil, beg : Int? = nil, op: ((Int, Int) -> Int)? = nil) -> Int {
+            
+        return -1
+    }
+    
 }
 
 //: Don't change the name of this object (`calc`); it's used in all the tests.
@@ -52,7 +134,7 @@ calc.subtract(lhs: 2, rhs: 2) == 0
 calc.multiply(lhs: 2, rhs: 2) == 4
 calc.divide(lhs: 2, rhs: 2) == 1
 
-calc.mathOp(lhs: 5, rhs: 5, op: { (lhs: Int, rhs: Int) -> Int in (lhs + rjs) + (lhs * rhs) }) == 35
+calc.mathOp(lhs: 5, rhs: 5, op: { (lhs: Int, rhs: Int) -> Int in (lhs + rhs) + (lhs * rhs) }) == 35
     // This style is one way of writing an anonymous function
 calc.mathOp(lhs: 10, rhs: -5, op: { ($0 + $1) + ($0 - $1) }) == 20
     // This is the second, more terse, style; either works
